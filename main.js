@@ -88,26 +88,26 @@ function getPokeName() {
 async function pokeApiCall(pokemonName) {
   // https://pokeapi.co/api/v2/pokemon/<pokemon>
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-  if (res.ok) {
+  if (res.ok){
     const data = await res.json()
     return {
       name: data.name,
       weight: data.weight,
-      abilites: getAbilityNames(data.abilities),
+      abilities: getAbilityNames(data.abilities),
       imgUrl: data.sprites.versions['generation-v']['black-white'].animated.front_default ?? data.sprites.front_default
     }
   } else window.alert('Invalid Pokename')
 }
 
-function getAbilityNames(abilites) {
-  const abilityNameArray = abilites.map((ob) => ob.ability.name)
+function getAbilityNames(abilities) {
+  const abilityNameArray = abilities.map((ob) => ob.ability.name)
   return abilityNameArray
 }
 
 const pokeCardContainer = document.querySelector('.poke-card-container')
 pokeCardContainer.style.display = 'flex'
 
-function makePokeCard({abilites, imgUrl, weight, name}) {
+function makePokeCard({abilities, imgUrl, weight, name}) {
 
   const pokeCard = document.createElement('div')
   const pokeHeading = document.createElement('h3')
@@ -115,7 +115,7 @@ function makePokeCard({abilites, imgUrl, weight, name}) {
   const attributeContainer = document.createElement('ul')
   const pokeImg = document.createElement('img')
 
-  for (const abilityName of abilites) {
+  for (const abilityName of abilities) {
     const abilityListItem = document.createElement('li')
     abilityListItem.innerText = abilityName
     attributeContainer.appendChild(abilityListItem)
